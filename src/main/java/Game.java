@@ -12,27 +12,15 @@ import java.security.Key;
 
 public class Game {
     private Screen screen;
-    private int x = 10;
-    private int y = 10;
+    private Arena arena;
 
     private void processKey(KeyStroke key) {
-        switch (key.getKeyType()) {
-            case ArrowLeft -> {
-                x -= 1;
-            }
-            case ArrowRight -> {
-                x += 1;
-            }
-            case ArrowUp -> {
-                y -= 1;
-            }
-            case ArrowDown -> {
-                y += 1;
-            }
-        }
+        arena.processKey(key);
     }
 
-    Game() {
+    public Game() {
+        arena = new Arena(20, 10);
+
         try {
             TerminalSize terminalSize = new TerminalSize(40, 20);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
@@ -43,17 +31,17 @@ public class Game {
             screen.startScreen();             // screens must be started
             screen.doResizeIfNecessary();     // resize screen if necessary
             screen.clear();
-            screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+            screen.setCharacter(arena.getX(), arena.getY(), TextCharacter.fromCharacter('X')[0]);
             screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void draw() {
+    private void draw() throws IOException {
         try {
             screen.clear();
-            screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+            arena.draw(screen);
             screen.refresh();
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,6 +60,5 @@ public class Game {
             }
         } while (key.getKeyType() != KeyType.EOF ||
                 (key.getKeyType() == KeyType.Character && key.getCharacter() != 'q'));
-
     }
 }
