@@ -41,7 +41,7 @@ public class Game {
     private void draw() throws IOException {
         try {
             screen.clear();
-            arena.draw(screen);
+            arena.draw(screen.newTextGraphics());
             screen.refresh();
         } catch (Exception e) {
             e.printStackTrace();

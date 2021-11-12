@@ -1,11 +1,15 @@
-import com.googlecode.lanterna.*;
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
 
-public class Hero {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Wall {
     private Position position;
 
-    public Hero(int x, int y) {
+    public Wall(int x, int y) {
         position = new Position(x, y);
     }
 
@@ -25,30 +29,11 @@ public class Hero {
         position.setY(y);
     }
 
+
     public void setPosition(Position p) {
         position = p;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
-        public Position moveDown() {
-        return new Position(position.getX(),
-                position.getY() + 1);
-    }
-
-    public Position moveRight() {
-        return new Position(position.getX() + 1, position.getY());
-    }
-
-    public Position moveLeft() {
-        return new Position(position.getX() - 1, position.getY());
-    }
-
-    public Position moveUp() {
-        return new Position(position.getX(), position.getY() - 1);
-    }
 
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
