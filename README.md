@@ -1,2 +1,2 @@
 # Hero
-Project of LDTS
+Lab class of LDTS
